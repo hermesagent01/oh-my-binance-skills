@@ -1,0 +1,21 @@
+name: smart-money-radar
+description: Binance Agent OS crypto intelligence workflow; runtime/model agnostic.
+skills:
+  - wallet-profile
+  - wallet-behavior
+  - whale-analysis
+  - smart-money
+  - wallet-overlap
+  - relative-strength
+  - volume-analysis
+execution:
+  mode: progressive
+  collect_shared_evidence_once: true
+  preserve_contradictions: true
+  missing_data_policy: disclose
+output:
+  sources: true
+  timestamps: true
+  data_quality: true
+  confidence: true
+  trading_recommendation: false

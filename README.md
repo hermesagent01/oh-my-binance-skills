@@ -1,35 +1,47 @@
-# Oh My Binance — Skill Library
+# Oh My Binance
 
-56 evidence-first crypto research skills powered by **Binance Agent OS**.
+## STEP 0 — one-time Binance authorization (~2 min, required for market data)
 
-## What's Inside
+Most skills read live markets through **Binance Agent OS**. Connect once:
 
-- **56 atomic skills** — from market data to whale tracking to token security
-- **Evidence contracts** — every skill emits structured, sourced output
-- **Runtime-agnostic** — works with Hermes, Claude, ChatGPT, Codex, Cursor
-- **Read-only** — research only, never places trades
+| Your agent | Do this |
+|---|---|
+| Claude Code | `claude mcp add binance --transport http https://agent.binance.com/mcp/agentic` then `/mcp` → Authenticate |
+| Codex CLI | add to `~/.codex/config.toml`: `[mcp_servers.binance] url = "https://agent.binance.com/mcp/agentic"` |
+| Hermes | `hermes mcp add binance --url https://agent.binance.com/mcp/agentic --auth oauth` then `hermes mcp test binance` |
+| ChatGPT / Cursor | Connector UI → URL `https://agent.binance.com/mcp/agentic` → browser OAuth |
 
-## Quick Install
+A browser window opens → sign in to Binance → toggle **read** permissions → done.
+Token/wallet/Web3 skills use bundled launchers and need no MCP at all.
 
-Download the zip above and extract to your agent's skills directory.
 
-### Hermes
-```bash
-unzip oh-my-binance-skills.zip -d ~/.hermes/skills/
-```
+A shareable crypto research skill library built specifically around **Binance Agent OS**.
 
-### Claude Code
-```bash
-unzip oh-my-binance-skills.zip -d ~/.claude/skills/
-```
+### Universal
+The skills are portable across AI agent runtimes and models.
 
-## Prerequisites
+### Binance-specific
+Binance Agent OS remains the canonical crypto data source. This is intentionally **not**
+a multi-exchange abstraction.
 
-Connect **Binance Agent OS** MCP for live market data:
-```
-hermes mcp add binance --url https://agent.binance.com/mcp/agentic --auth oauth
-```
+### What it does
+- token intelligence
+- market structure
+- derivatives context
+- wallet/whale/smart-money analysis
+- anomaly detection
+- move explanation
+- confluence and contradiction analysis
+- scenario/thesis research
 
-## License
+### What it does not do
+It does not autonomously trade and does not issue personalized trading instructions.
 
-MIT — from [ohmybinance.xyz](https://ohmybinance.xyz)
+**New here (or an AI agent receiving this folder)?** Read `AGENTS.md` first — it is the bootstrap guide.
+
+See:
+- `AGENTS.md` (start here)
+- `docs/ARCHITECTURE.md`
+- `docs/BINANCE-AGENT-OS.md`
+- `schemas/evidence-contract.yaml`
+- `workflows/`

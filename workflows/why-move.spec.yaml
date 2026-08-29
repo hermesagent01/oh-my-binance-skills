@@ -1,0 +1,104 @@
+name: why-move
+version: 1.0.0
+description: >
+  Gated investigation workflow. Discovers capabilities, collects shared evidence ONCE,
+  runs analysis dimensions, builds one internal evidence object, and renders through
+  trader-explainer. The user never sees internal states.
+
+inputs:
+  required:
+    - symbol          # e.g. SOLUSDT (spot pair; perp derived)
+    - event_window    # e.g. "24h", or explicit start/end ISO
+  optional:
+    - focus_dimensions   # subset to investigate; default = all available
+
+capability_discovery:
+  phase: 0
+  on_fail: STOP
+  message_to_user: >
+    Binance Agent OS is not connected. Connect it via MCP
+    (https://agent.binance.com/mcp/agentic) and re-run. No fallback data source is used.
+  checks:
+    - family: market-data        # klines/tickers
+    - family: order-book
+    - family: funding            # funding rate / premium index / mark price
+    - family: open-interest      # current OI + statistics history
+    - family: long-short-ratio
+    - family: taker-flow
+    - family: account-reads      # only if journal/portfolio context requested
+
+shared_evidence:
+  phase: 1
+  collect_once: true             # every dimension reads from this object; no duplicate API calls
+  object:
+    asset: symbol
+    window: event_window
+    collected_at: <iso timestamp>
+    spot:
+      ticker_24h: {}
+      klines: {interval: 1h, lookback: 48}
+      depth_top20: {}
+    derivatives:
+      open_interest_current: {}
+      open_interest_stats: {period: 5m, limit: 12}
+      funding_last3: {}
+      mark_price: {}
+      premium_index_1h: {limit: 24}
+      long_short_ratio: {period: 5m, limit: 1}
+      taker_buy_sell: {period: 5m, limit: 6}
+    web3:                        # vendored executables only — no explorer
+      smart_money_inflow: {chainId: auto, period: 24h}     # crypto-market-rank
+      social_hype: {chainId: auto}                          # crypto-market-rank
+      token_audit: {}                                       # query-token-audit (if contract known)
+    unavailable: []               # capability names recorded here are OMITTED from user output
+
+analysis_dimensions:
+  phase: 2
+  run_each_independently: true
+  omit_if_unavailable: true       # dimension with no evidence is dropped from synthesis silently
+  dimensions:
+    - price_structure            # swing/range context around the move
+    - volume_character           # spike multiple vs baseline, follow-through
+    - derivatives_positioning    # OI delta × price direction quadrant, funding stress
+    - flow                       # taker buy/sell dominance shift across the window
+    - book_pressure              # depth imbalance near mid at window edges
+    - smart_money                # inflow rank presence/absence for the asset
+    - narrative                  # social-hype rank movement during window
+
+synthesis:
+  phase: 3
+  rules:
+    - rank candidate contributors by temporal alignment → magnitude → mechanism → independence
+    - contradictions between dimensions are stated as tension in the take, not listed separately
+    - no causation claim without mechanism + temporal alignment both present
+  confidence:
+    HIGH:   ≥5 dimensions AVAILABLE and ≥2 independent contributors agree
+    MEDIUM: 3-4 dimensions AVAILABLE or single strong contributor
+    LOW:    ≤2 dimensions AVAILABLE
+
+rendering:
+  phase: 4
+  renderer: trader-explainer      # FINAL AND ONLY user-facing step
+  input: evidence_object + synthesis
+  output_contract:
+    - trader_take                 # plain English first
+    - numbers                     # each w/ timeframe
+    - meaning                     # translation paragraph
+    - supporting                  # 🟢
+    - fighting                    # 🔴
+    - invalidation                # 🎯 concrete levels/flows
+    - confidence                  # HIGH/MEDIUM/LOW
+  forbidden_in_output:
+    - MISSING | UNSUPPORTED | NOT_CHECKED | NOT_CONNECTED
+    - tool names (mcp__binance__*, binance-cli)
+    - skill names
+    - empty-dimension apologies ("liquidations data was missing")
+  quality_gate: enforced          # renderer runs the checklist before returning
+
+failure_states:
+  agent_os_not_connected:
+    action: STOP
+    tell_user: connect_command_for_their_agent
+  partial_capability_loss_mid_run:
+    action: continue_with_available
+    note: affected dimensions omitted silently per omit_if_unavailable

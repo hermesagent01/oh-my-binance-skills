@@ -1,0 +1,21 @@
+name: crypto-evidence
+source: Binance Agent OS
+required:
+  asset: string
+  timestamp: string
+  availability: [AVAILABLE, MISSING, UNSUPPORTED, STALE, CONFLICTING]
+recommended:
+  venue: string
+  market_type: string
+  chain: string
+  timeframe: string
+  value: any
+  unit: string
+  baseline: any
+interpretation:
+  observed: list
+  inferred: list
+  possible: list
+  unknown: list
+  contradictions: list
+  confidence: [HIGH, MEDIUM, LOW]

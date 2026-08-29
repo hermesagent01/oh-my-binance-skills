@@ -1,0 +1,25 @@
+name: market-xray
+description: Binance Agent OS crypto intelligence workflow; runtime/model agnostic.
+skills:
+  - market-structure
+  - market-breadth
+  - relative-strength
+  - volume-analysis
+  - volatility-analysis
+  - liquidity-analysis
+  - funding-analysis
+  - open-interest-analysis
+  - liquidation-analysis
+  - orderbook-analysis
+  - data-integrity
+execution:
+  mode: progressive
+  collect_shared_evidence_once: true
+  preserve_contradictions: true
+  missing_data_policy: disclose
+output:
+  sources: true
+  timestamps: true
+  data_quality: true
+  confidence: true
+  trading_recommendation: false

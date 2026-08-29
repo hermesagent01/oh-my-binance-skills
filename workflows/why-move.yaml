@@ -1,0 +1,26 @@
+name: why-move
+description: Binance Agent OS crypto intelligence workflow; runtime/model agnostic.
+skills:
+  - market-structure
+  - volume-analysis
+  - liquidity-analysis
+  - orderbook-analysis
+  - open-interest-analysis
+  - funding-analysis
+  - liquidation-analysis
+  - whale-analysis
+  - smart-money
+  - narrative-analysis
+  - signal-attribution
+  - contradiction-analysis
+execution:
+  mode: progressive
+  collect_shared_evidence_once: true
+  preserve_contradictions: true
+  missing_data_policy: disclose
+output:
+  sources: true
+  timestamps: true
+  data_quality: true
+  confidence: true
+  trading_recommendation: false

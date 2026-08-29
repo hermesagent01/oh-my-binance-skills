@@ -1,0 +1,23 @@
+name: token-discovery
+description: Binance Agent OS crypto intelligence workflow; runtime/model agnostic.
+skills:
+  - token-profile
+  - token-health
+  - token-age
+  - liquidity-analysis
+  - holder-analysis
+  - token-security
+  - smart-money
+  - narrative-analysis
+  - relative-strength
+execution:
+  mode: progressive
+  collect_shared_evidence_once: true
+  preserve_contradictions: true
+  missing_data_policy: disclose
+output:
+  sources: true
+  timestamps: true
+  data_quality: true
+  confidence: true
+  trading_recommendation: false

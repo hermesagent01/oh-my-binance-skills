@@ -1,0 +1,24 @@
+name: deep-dive
+description: Binance Agent OS crypto intelligence workflow; runtime/model agnostic.
+skills:
+  - data-integrity
+  - token-xray
+  - market-xray
+  - smart-money-radar
+  - why-move
+  - confluence-engine
+  - contradiction-engine
+  - scenario-analysis
+  - historical-analogy
+  - research-memory
+execution:
+  mode: progressive
+  collect_shared_evidence_once: true
+  preserve_contradictions: true
+  missing_data_policy: disclose
+output:
+  sources: true
+  timestamps: true
+  data_quality: true
+  confidence: true
+  trading_recommendation: false

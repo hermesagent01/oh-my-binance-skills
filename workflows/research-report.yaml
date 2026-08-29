@@ -1,0 +1,30 @@
+name: research-report
+description: Binance Agent OS crypto intelligence workflow; runtime/model agnostic.
+skills:
+  - data-integrity
+  - token-profile
+  - token-health
+  - holder-analysis
+  - token-security
+  - market-structure
+  - volume-analysis
+  - liquidity-analysis
+  - smart-money
+  - whale-analysis
+  - funding-analysis
+  - open-interest-analysis
+  - narrative-analysis
+  - bull-bear-analysis
+  - contradiction-analysis
+  - scenario-analysis
+execution:
+  mode: progressive
+  collect_shared_evidence_once: true
+  preserve_contradictions: true
+  missing_data_policy: disclose
+output:
+  sources: true
+  timestamps: true
+  data_quality: true
+  confidence: true
+  trading_recommendation: false

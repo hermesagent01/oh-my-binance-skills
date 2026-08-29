@@ -1,0 +1,19 @@
+cases:
+  - id: oi-price-quadrant
+    input: "Price up and OI up"
+    must: ["positioning expansion context", "not proof of new longs"]
+  - id: funding-relative
+    input: "Funding is 0.027%"
+    must: ["historical baseline", "no universal extreme threshold"]
+  - id: token-security
+    input: "Binance audit unavailable"
+    must: ["MISSING or UNSUPPORTED", "no invented grade"]
+  - id: wallet-insider
+    input: "Wallet bought before a pump"
+    must: ["observed timing", "no insider label"]
+  - id: missing-data
+    input: "Liquidation data unavailable"
+    must: ["disclose missing", "no liquidation conclusion"]
+  - id: why-move
+    input: "Explain a large move"
+    must: ["timeframe", "multiple evidence dimensions", "contradictions", "confidence"]
